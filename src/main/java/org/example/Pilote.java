@@ -21,7 +21,7 @@ public class Pilote extends Employe{
     }
     @Override
     public String obtenirInfos() {
-        return super.obtenirInfos() + "/ License :" + licence + " / Heures de vol : " + heuresDeVol;
+        return super.obtenirInfos() + "/ License :" + license + " / Heures de vol : " + heuresDeVol;
 
     }
     public String getLicense() {
