@@ -16,7 +16,7 @@ public class Personne {
 
     }
 
-    public String obtenir Info() {
+    public String obtenirInfo() {
         return "[" + identifiant + "] " + nom + " | Adresse : " + adresse + " | Contact : " + contact;
     }
 }
