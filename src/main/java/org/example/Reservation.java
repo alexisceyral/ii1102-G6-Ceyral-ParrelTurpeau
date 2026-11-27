@@ -31,6 +31,32 @@ public class Reservation {
         statut = StatutReservation.CONFIRMEE;
    }
    public void annulerReservation () {
-       if (statut == StatutReservation.ANNULEE)
+       if (statut == StatutReservation.ANNULEE){
+           throw new IllegalStateException("Cette réservation est déjà annulée.");
+
+       }
+       statut = StatutReservation.ANNULEE;
    }
+    public void modifierReservation(Vol nouveauVol) {
+        if (nouveauVol == null) {
+            throw new IllegalArgumentException("Le nouveau vol ne peut pas être nul.");
+        }
+        if (statut == StatutReservation.ANNULEE) {
+            throw new IllegalStateException("Impossible de modifier une réservation annulée.");
+        }
+        this.vol = nouveauVol;
+        this.statut = StatutReservation.EN_ATTENTE;   // il faudra la reconfirmer
+    }
+
+    // ===== Getters (pas de setters : on passe par les méthodes ci-dessus) =====
+    public String getNumeroReservation() { return numeroReservation; }
+    public LocalDateTime getDateReservation() { return dateReservation; }
+    public StatutReservation getStatut() { return statut; }
+    public Passager getPassager() { return passager; }
+    public Vol getVol() { return vol; }
+
+    @Override
+    public String toString() {
+        return numeroReservation + " | " + passager.getNom() + " | " + statut;
+    }
 }
