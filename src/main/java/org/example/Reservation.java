@@ -1,4 +1,8 @@
 package org.example;
+import java.util.Map;
+import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.ArrayList;
 
 import java.time.LocalDateTime;
 
@@ -58,5 +62,43 @@ public class Reservation {
     @Override
     public String toString() {
         return numeroReservation + " | " + passager.getNom() + " | " + statut;
+    }
+
+    // ===================== CRUD (IA) =====================
+    private static final Map<String, Reservation> reservations = new LinkedHashMap<>();
+
+    /** CREATE : enregistre une réservation. Refusé si null ou si le numéro existe déjà. */
+    public static boolean ajouter(Reservation reservation) {
+        if (reservation == null || reservation.numeroReservation == null
+                || reservations.containsKey(reservation.numeroReservation)) {
+            return false;
+        }
+        reservations.put(reservation.numeroReservation, reservation);
+        return true;
+    }
+
+    /** READ : cherche une réservation par son numéro (null si absente). */
+    public static Reservation chercher(String numeroReservation) {
+        return reservations.get(numeroReservation);
+    }
+
+    /** READ : liste toutes les réservations. */
+    public static List<Reservation> lister() {
+        return new ArrayList<>(reservations.values());
+    }
+
+    /** UPDATE : change le vol d'une réservation (réutilise modifierReservation). */
+    public static boolean modifier(String numeroReservation, Vol nouveauVol) {
+        Reservation r = reservations.get(numeroReservation);
+        if (r == null) {
+            return false;
+        }
+        r.modifierReservation(nouveauVol);
+        return true;
+    }
+
+    /** DELETE : supprime une réservation par son numéro. */
+    public static boolean supprimer(String numeroReservation) {
+        return reservations.remove(numeroReservation) != null;
     }
 }
