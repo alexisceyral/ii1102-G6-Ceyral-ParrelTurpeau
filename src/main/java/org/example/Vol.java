@@ -39,8 +39,11 @@ public class Vol {
     }
 
 
-
-
+    public boolean chevauche(Vol autre) {
+        return etat != EtatVol.ANNULE && autre.getEtat() != EtatVol.ANNULE
+                && dateHeureDepart.isBefore(autre.getDateHeureArrivee())
+                && dateHeureArrivee.isAfter(autre.getDateHeureDepart());
+    }
 
 
 }
