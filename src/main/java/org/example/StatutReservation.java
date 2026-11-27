@@ -1,7 +1,7 @@
 package org.example;
 
 public enum StatutReservation {
-    En_ATTENTE,
+    EN_ATTENTE,
     CONFIRMEE,
     ANNULEE
 }
